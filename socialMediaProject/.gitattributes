@@ -2,6 +2,8 @@
 *.cmd text eol=crlf
 *.bundle.js linguist-generated=true
 *.chunk.js linguist-generated=true
+*.js linguist-generated=true
+*.ts linguist-generated=true
 frontend/generated/** linguist-generated=true
 target/** linguist-vendored=true
 node_modules/** linguist-vendored=true
