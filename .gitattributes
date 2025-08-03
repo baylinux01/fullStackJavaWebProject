@@ -1,6 +1,0 @@
-
-*.bundle.js linguist-generated=true
-*.chunk.js linguist-generated=true
-frontend/generated/** linguist-generated=true
-target/** linguist-vendored=true
-node_modules/** linguist-vendored=true
