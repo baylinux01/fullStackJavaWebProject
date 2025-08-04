@@ -37,7 +37,7 @@ import com.vaadin.flow.component.html.Paragraph;
 		 
 		  )
 
-@Route("/SignUpView")
+@Route(value="/SignUpView",layout=MainLayout.class)
 public class SignUpView extends Div{
 
 AppService appService;
@@ -50,46 +50,7 @@ String imagePath=null;
 		super();
 		this.appService=appService;
 		this.getStyle().set("height", "800px");
-		Div header=new Div();
-		header.getStyle()
-		.set("position", "absolute")
-		.set("top","0px")
-		.set("left","0px")
-		.set("width", "100%")
-		.set("height", "50px")
-		.set("background-color", "black");
 		
-		add(header);
-		
-		Button btn1=new Button("Giriş Yap");
-		btn1.getStyle()
-		.set("position", "absolute")
-		.set("width", "110px")
-		.set("height", "30px")
-		.set("top", "5px")
-		.set("left", "1120px")
-		.set("background-color", "gray")
-		.set("color", "white")
-		.set("border", "1px solid black");
-		btn1.addClassName("btn");
-		//btn1.addClickListener(e->UI.getCurrent().navigate("/LoginView"));
-		btn1.addClickListener(e->UI.getCurrent().navigate(LoginView.class));
-		add(btn1);
-		
-		Button btn2=new Button("Ana Sayfa");
-		btn2.getStyle()
-		.set("position", "absolute")
-		.set("width", "110px")
-		.set("height", "30px")
-		.set("top", "5px")
-		.set("left", "1240px")
-		.set("background-color", "gray")
-		.set("color", "white")
-		.set("border", "1px solid black");
-		btn2.addClassName("btn");
-		//btn2.addClickListener(e->UI.getCurrent().navigate("/"));
-		btn2.addClickListener(e->UI.getCurrent().navigate(IndexView.class));
-		add(btn2);
 		
 		NativeLabel label1=new NativeLabel("İsminizi Giriniz: ");
 		label1.getStyle()

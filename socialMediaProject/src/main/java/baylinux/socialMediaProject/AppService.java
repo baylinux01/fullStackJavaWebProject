@@ -42,7 +42,10 @@ public class AppService
 	}
 
 
-
+	boolean loggedIn()
+	{
+		return false;
+	}
 	void sendEMail(String eMail)
 	{
 		String code = String.format("%04d", ThreadLocalRandom.current().nextInt(10000));

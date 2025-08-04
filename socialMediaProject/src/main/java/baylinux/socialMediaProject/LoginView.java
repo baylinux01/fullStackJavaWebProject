@@ -1,5 +1,7 @@
 package baylinux.socialMediaProject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
@@ -17,51 +19,16 @@ import com.vaadin.flow.router.Route;
 		 
 		  )
 
-@Route("/LoginView")
+@Route(value="/LoginView",layout=MainLayout.class)
 public class LoginView extends Div{
 
-		LoginView()
+		AppService appService;
+		@Autowired
+		LoginView(AppService appService)
 		{
-			Div header=new Div();
-			header.getStyle()
-			.set("position", "absolute")
-			.set("top","0px")
-			.set("left","0px")
-			.set("width", "100%")
-			.set("height", "50px")
-			.set("background-color", "black");
+			super();
+			this.appService=appService;
 			
-			add(header);
-			
-			Button btn1=new Button("Ana Sayfa");
-			btn1.getStyle()
-			.set("position", "absolute")
-			.set("width", "110px")
-			.set("height", "30px")
-			.set("top", "5px")
-			.set("left", "1120px")
-			.set("background-color", "gray")
-			.set("color", "white")
-			.set("border", "1px solid black");
-			btn1.addClassName("btn");
-			//btn1.addClickListener(e->UI.getCurrent().navigate("/"));
-			btn1.addClickListener(e->UI.getCurrent().navigate(IndexView.class));
-			add(btn1);
-			
-			Button btn2=new Button("Kayıt Ol");
-			btn2.getStyle()
-			.set("position", "absolute")
-			.set("width", "110px")
-			.set("height", "30px")
-			.set("top", "5px")
-			.set("left", "1240px")
-			.set("background-color", "gray")
-			.set("color", "white")
-			.set("border", "1px solid black");
-			btn2.addClassName("btn");
-			//btn2.addClickListener(e->UI.getCurrent().navigate("/SignUpView"));
-			btn2.addClickListener(e->UI.getCurrent().navigate(SignUpView.class));
-			add(btn2);
 			
 			NativeLabel label1=new NativeLabel("Kullanıcı Adınızı Giriniz: ");
 			label1.getStyle()
