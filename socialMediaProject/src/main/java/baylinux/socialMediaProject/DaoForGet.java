@@ -73,11 +73,10 @@ public class DaoForGet
 				p.setSurname(rs.getString("surname"));
 				p.setUsername(rs.getString("username"));
 				p.setEMail(rs.getString("eMail"));
-				//p.setPassword(rs.getString("password"));
+				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
 				p.setBirthDate(rs.getString("birthData"));
 				p.setRoles(rs.getString("roles"));
-				p.setVerified(rs.getLong("verified"));
 				appUsersInDb.add(p);
 				
 				
@@ -127,11 +126,10 @@ public class DaoForGet
 				p.setSurname(rs.getString("surname"));
 				p.setUsername(rs.getString("username"));
 				p.setEMail(rs.getString("eMail"));
-				//p.setPassword(rs.getString("password"));
+				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
 				p.setBirthDate(rs.getString("birthData"));
 				p.setRoles(rs.getString("roles"));
-				p.setVerified(rs.getLong("verified"));
 				appUsersInDb.add(p);
 				
 				
@@ -179,11 +177,10 @@ public class DaoForGet
 				p.setSurname(rs.getString("surname"));
 				p.setUsername(rs.getString("username"));
 				p.setEMail(rs.getString("eMail"));
-				//p.setPassword(rs.getString("password"));
+				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
 				p.setBirthDate(rs.getString("birthData"));
 				p.setRoles(rs.getString("roles"));
-				p.setVerified(rs.getLong("verified"));
 				appUsersInDb.add(p);
 				
 				
@@ -231,11 +228,60 @@ public class DaoForGet
 				p.setSurname(rs.getString("surname"));
 				p.setUsername(rs.getString("username"));
 				p.setEMail(rs.getString("eMail"));
-				//p.setPassword(rs.getString("password"));
+				p.setPassword(rs.getString("password"));
+				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
+				p.setBirthDate(rs.getString("birthDate"));
+				p.setRoles(rs.getString("roles"));
+				appUsersInDb.add(p);
+				
+				
+			
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			if(con!=null)
+			{
+				con.close();
+			}
+			
+				
+			
+		}
+		return appUsersInDb.get(0);
+	}
+	AppUser getAppUserByEMail(String eMail) throws SQLException
+	{
+		String query="Select "
+				+ "*"
+				+ "From AppUserTable where eMail=?";
+		List<AppUser> appUsersInDb=new ArrayList<AppUser>();
+		try {
+//			Class.forName(className);
+//			con = DriverManager.getConnection(url);
+//			con = DriverManager.getConnection(url,uname,pass);
+			con=getCon();
+			PreparedStatement st= con.prepareStatement(query);
+			st.setString(1, eMail);
+			
+			ResultSet rs = st.executeQuery();
+			while(rs.next())
+			{
+				AppUser p=new AppUser();
+				p.setId(rs.getLong("id"));
+				p.setName(rs.getString("name"));
+				p.setSurname(rs.getString("surname"));
+				p.setUsername(rs.getString("username"));
+				p.setEMail(rs.getString("eMail"));
+				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
 				p.setBirthDate(rs.getString("birthData"));
 				p.setRoles(rs.getString("roles"));
-				p.setVerified(rs.getLong("verified"));
 				appUsersInDb.add(p);
 				
 				

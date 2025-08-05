@@ -68,8 +68,8 @@ public class DaoForInsertion
 		
 		String query1="Insert into AppUserTable (name, surname, "
 				+ "username, eMail,password, "
-				+"userImageAsByteArray, birthDate, roles,verified)"
-				+ "values (?,?,?,?,?,?,?,?,?)";
+				+"userImageAsByteArray, birthDate, roles)"
+				+ "values (?,?,?,?,?,?,?,?)";
 		int result=-1;
 		try {
 //			Class.forName(className);
@@ -83,10 +83,9 @@ public class DaoForInsertion
 			st1.setString(3, appUser.getUsername());
 			st1.setString(4, appUser.getEMail());
 			st1.setString(5, appUser.getPassword());
-			st1.setBytes(6, appUser.getUserImageAsByteArray());
+			st1.setBytes(6,  appUser.getUserImageAsByteArray());
 			st1.setString(7, appUser.getBirthDate());
 			st1.setString(8, appUser.getRoles());
-			st1.setLong(9, appUser.getVerified());
 			result=st1.executeUpdate();
 		
 		} catch (ClassNotFoundException e) {

@@ -14,21 +14,17 @@ import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+
+import jakarta.annotation.security.PermitAll;
 
 @StyleSheet("data:text/css;charset=utf-8,"
 		   + ".btn:hover"
 		   + "{ "
 		   + "background-color:white !important; color:black !important;"
-		   + "}"
-		  
-			        
-			   
-			 
+		   + "}")
 
-			 
-			 
-			
-			)
+@AnonymousAllowed
 @Route(value="",layout = MainLayout.class)
 public class IndexView extends Div
 {

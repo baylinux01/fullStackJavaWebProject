@@ -95,8 +95,7 @@ public class DaoForCreation
                 +"password text,"
                 +"userImageAsByteArray longblob,"
                 +"birthDate text,"
-                +"roles text,"
-                + "verified bigint"
+                +"roles text"
                 + ");";
 
 		

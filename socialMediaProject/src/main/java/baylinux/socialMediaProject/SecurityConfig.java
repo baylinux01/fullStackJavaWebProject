@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -22,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -31,7 +33,7 @@ import com.vaadin.flow.spring.security.VaadinWebSecurity;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {   //extends VaadinWebSecurity{
+public class SecurityConfig extends VaadinWebSecurity{
 	
 	private UserDetailsService userDetailsService;
 	
@@ -52,46 +54,72 @@ public class SecurityConfig {   //extends VaadinWebSecurity{
 //	           
 //	           
 //	 }
+	
+	 @Override
+	 protected void configure(HttpSecurity http) throws Exception {
+	     http.authorizeHttpRequests(auth -> auth
+	             .requestMatchers("/VAADIN/**", "/vaadinServlet/**",
+	                              "/","/logout","/login", "/LoginView", "/SignUpView").permitAll()
+	             // .anyRequest().authenticated()  <-- REMOVE this line
+	     ).logout(logout -> logout
+                 .logoutUrl("/logout")          
+                 .logoutSuccessUrl("/LoginView")
+                 .invalidateHttpSession(true)
+                 .deleteCookies("JSESSIONID")
+				 );
+	     
+	     super.configure(http);        // Vaadin inserts the final .anyRequest().authenticated()
+	     //setLoginView(http, LoginView.class);
+	 }
+	
+//	@Bean
+//	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
+//	{
+//		return http
+//				.csrf(customizer->customizer.disable())
+//				.authorizeHttpRequests(req->req
+//						.requestMatchers(
+//										    "/",                    // root
+//				                           "/VAADIN/**",           // Vaadin statik kaynaklar
+//				                            "/vaadinServlet/**",    // Vaadin servlet
+//				                            "/ui/**",
+//				                            "/sw.js",               // PWA
+//				                            "/web-push/**", 
+//				                            "/login",               // login sayfası
+//				                            "/logout",
+//				                            "/LoginView",
+//				                            "/SignUpView"
+//											).permitAll()
+//						//.requestMatchers("/users/**").hasRole("USER")
+//						.anyRequest().authenticated())
+//				 .logout(logout -> logout
+//		                    .logoutUrl("/logout")          
+//		                    .logoutSuccessUrl("/LoginView")
+//		                    .invalidateHttpSession(true)
+//		                    .deleteCookies("JSESSIONID")
+//						 )
+//			  //.formLogin(Customizer.withDefaults())
+//				.httpBasic(Customizer.withDefaults())
+//				.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//				//.addFilterBefore(jWTFilter, UsernamePasswordAuthenticationFilter.class)
+////				.cors(httpSecurityCorsConfigurer->
+////				{
+////					CorsConfiguration configuration=new CorsConfiguration();
+////					configuration.setAllowedOrigins(List.of("*"));
+////					configuration.setAllowedMethods(List.of("*"));
+////					configuration.setAllowedHeaders(List.of("*"));
+////					UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
+////					source.registerCorsConfiguration("/**", configuration);
+////					httpSecurityCorsConfigurer.configurationSource(source);
+////				})
+//				.build();
+//				
+//	}
 	 @Bean
 	 public PasswordEncoder passwordEncoder()
 	 {
 		return new BCryptPasswordEncoder(12);
 	 }
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
-	{
-		return http
-				.csrf(customizer->customizer.disable())
-				.authorizeHttpRequests(req->req
-						.requestMatchers(
-										    "/",                    // root
-				                            "/VAADIN/**",           // Vaadin statik kaynaklar
-				                            "/vaadinServlet/**",    // Vaadin servlet
-				                            "/login",               // login sayfası
-				                            "/logout",
-				                            "/LoginView",
-				                            "/SignUpView"
-											).permitAll()
-						//.requestMatchers("/users/**").hasRole("USER")
-						.anyRequest().authenticated())
-			  //.formLogin(Customizer.withDefaults())
-				.httpBasic(Customizer.withDefaults())
-				.sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				//.addFilterBefore(jWTFilter, UsernamePasswordAuthenticationFilter.class)
-				.cors(httpSecurityCorsConfigurer->
-				{
-					CorsConfiguration configuration=new CorsConfiguration();
-					configuration.setAllowedOrigins(List.of("*"));
-					configuration.setAllowedMethods(List.of("*"));
-					configuration.setAllowedHeaders(List.of("*"));
-					UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
-					source.registerCorsConfiguration("/**", configuration);
-					httpSecurityCorsConfigurer.configurationSource(source);
-				})
-				.build();
-				
-	}
-	
 	@Bean
 	public AuthenticationProvider authenticationProvider() 
 	{
@@ -107,6 +135,15 @@ public class SecurityConfig {   //extends VaadinWebSecurity{
 		return config.getAuthenticationManager();
 		
 	}
+	
+//	 @Bean
+//	 public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
+//	                                                    PasswordEncoder passwordEncoder) {
+//	     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//	     provider.setUserDetailsService(userDetailsService);
+//	     provider.setPasswordEncoder(passwordEncoder);
+//	     return new ProviderManager(provider);
+//	 }
 	
 	@Bean 
 	public RestTemplate restTemplate() 

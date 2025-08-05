@@ -2,6 +2,7 @@ package baylinux.socialMediaProject;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -12,8 +13,13 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
+
+import jakarta.annotation.security.PermitAll;
 
 @StyleSheet("data:text/css;charset=utf-8,"
 		   + ".btn:hover"
@@ -21,17 +27,17 @@ import com.vaadin.flow.router.RouterLink;
 		   + "background-color:white !important; color:black !important;"
 		   + "}")
 
-public class TopHeader extends Div
-{
+
+public class TopHeader extends Div 
+{  
+	
 	AppService appService;
+	
 	@Autowired
 	public TopHeader(AppService appService)
 	{
 		super();
 		this.appService=appService;
-		
-		String pagePath = UI.getCurrent().getInternals()
-                .getActiveViewLocation().getPath();
 		
 		Div header=new Div();
 		header.getStyle()
@@ -87,14 +93,16 @@ public class TopHeader extends Div
 		        UI.getCurrent().navigate(FriendshipView.class);
 		    }
 		});
+		menu.setSelectedIndex(-1);
 		add(menu);
 		
 		
 		
 		Button btn1=null;
-		if(appService.loggedIn()==true)
+		if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
 		{
-			btn1=new Button("Anasayfa");
+			
+			btn1=new Button(appService.getCurrentAppUser().getUsername());
 		}
 		else
 		{
@@ -112,9 +120,9 @@ public class TopHeader extends Div
 		btn1.addClassName("btn");
 		//btn1.addClickListener(e->UI.getCurrent().navigate("/LoginView"));
 		btn1.addClickListener(e->{
-			if(appService.loggedIn()==true)
+			if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
 			{
-				UI.getCurrent().navigate(IndexView.class);
+				
 			}
 			else
 			{
@@ -125,9 +133,9 @@ public class TopHeader extends Div
 		
 		
 		Button btn2=null;
-		if(appService.loggedIn()==true)
+		if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
 		{
-			btn2=new Button("Hoşgeldiniz");
+			btn2=new Button("Çıkış Yap");
 		}
 		else
 		{
@@ -146,9 +154,9 @@ public class TopHeader extends Div
 		//btn2.addClickListener(e->UI.getCurrent().navigate("/SignUpView"));
 		btn2.addClickListener(e->
 		{
-			if(appService.loggedIn()==true)
+			if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
 			{
-				
+				UI.getCurrent().navigate("/logout");
 			}	
 			else
 			{
@@ -158,4 +166,5 @@ public class TopHeader extends Div
 		add(btn2);
 		
 	}
+	
 }

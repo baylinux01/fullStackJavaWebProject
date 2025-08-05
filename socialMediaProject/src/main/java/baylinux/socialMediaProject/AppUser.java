@@ -55,8 +55,6 @@ public class AppUser {
 	
 	private String roles;
 	
-	private long verified=0;
-	
 
 	public long getId() {
 		return id;
@@ -148,20 +146,6 @@ public class AppUser {
 	}
 
 
-
-	public long getVerified() {
-		return verified;
-	}
-
-	public void setVerified(long verified) {
-		this.verified = verified;
-	}
-
-	
-
-	
-	
-	
 
 }
 	

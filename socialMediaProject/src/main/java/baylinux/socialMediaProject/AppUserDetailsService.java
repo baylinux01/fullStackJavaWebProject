@@ -27,10 +27,13 @@ DaoForGet daoForGet;
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		AppUser user=null;
-		try {
+		try 
+		{
 			user = daoForGet.getAppUserByUsername(username);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (SQLException e) 
+		{
+			
 			e.printStackTrace();
 		}
 		if(user==null)

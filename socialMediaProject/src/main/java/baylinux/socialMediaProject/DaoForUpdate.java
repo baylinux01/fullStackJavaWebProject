@@ -69,8 +69,7 @@ public class DaoForUpdate
 				+ "password=?,"
 				+ "userImageAsByteArray=?,"
 				+ "birthDate=?,"
-				+ "roles=?,"
-				+ "verified=?"
+				+ "roles=?"
 				+ "where id=?";
 		int result=-1;
 		try {
@@ -88,8 +87,7 @@ public class DaoForUpdate
 			st1.setBytes(6,  user.getUserImageAsByteArray());
 			st1.setString(7, user.getBirthDate());
 			st1.setString(8, user.getRoles());
-			st1.setLong(9, user.getVerified());
-			st1.setLong(10,   user.getId());
+			st1.setLong(9,   user.getId());
 			result=st1.executeUpdate();
 		
 		} catch (ClassNotFoundException e) {
