@@ -5,15 +5,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.router.AfterNavigationEvent;
+import com.vaadin.flow.router.AfterNavigationObserver;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 import jakarta.annotation.security.PermitAll;
 
 
-public class MainLayout extends Div implements RouterLayout 
+public class MainLayout extends Div implements RouterLayout, AfterNavigationObserver
 {
 	private final Div contentWrapper= new Div();
+	
+	
+	@Override
+    public void afterNavigation(AfterNavigationEvent event) {
+        // TopHeader'ı güncelle
+		((TopHeader) getChildren().findFirst().orElse(null)).updateHeader();
+    }
+	
 	@Override
     public void showRouterLayoutContent(HasElement content) 
 	{
@@ -21,6 +31,7 @@ public class MainLayout extends Div implements RouterLayout
         contentWrapper.getElement()
                     .appendChild(content.getElement()); 
     }
+	
 	AppService appService;
 	
 	@Autowired
@@ -28,6 +39,7 @@ public class MainLayout extends Div implements RouterLayout
 	{
 		super();
 		this.appService=appService;
+		
 		
 		
 		add(new TopHeader(appService));

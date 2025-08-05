@@ -8,9 +8,13 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.StyleSheet;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.AfterNavigationEvent;
@@ -32,7 +36,81 @@ public class TopHeader extends Div
 {  
 	
 	AppService appService;
+	Button btn1=null;
+	Button btn2=null;
 	
+	public void updateHeader()
+	{
+		remove(btn1);
+		remove(btn2);
+		
+		//Button btn1=null;
+				if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
+				{
+					
+					btn1=new Button(appService.getCurrentAppUser().getUsername());
+				}
+				else
+				{
+					btn1=new Button("Giriş Yap");
+				}
+				btn1.getStyle()
+				.set("position", "absolute")
+				.set("width", "110px")
+				.set("height", "30px")
+				.set("top", "5px")
+				.set("left", "1120px")
+				.set("background-color", "gray")
+				.set("color", "white")
+				.set("border", "1px solid black");
+				btn1.addClassName("btn");
+				//btn1.addClickListener(e->UI.getCurrent().navigate("/LoginView"));
+				btn1.addClickListener(e->{
+					if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
+					{
+						
+					}
+					else
+					{
+						UI.getCurrent().navigate(LoginView.class);
+					}
+				});
+				add(btn1);
+				
+				
+				//Button btn2=null;
+				if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
+				{
+					btn2=new Button("Çıkış Yap");
+				}
+				else
+				{
+					btn2=new Button("Kayıt Ol");
+				}
+				btn2.getStyle()
+				.set("position", "absolute")
+				.set("width", "110px")
+				.set("height", "30px")
+				.set("top", "5px")
+				.set("left", "1240px")
+				.set("background-color", "gray")
+				.set("color", "white")
+				.set("border", "1px solid black");
+				btn2.addClassName("btn");
+				//btn2.addClickListener(e->UI.getCurrent().navigate("/SignUpView"));
+				btn2.addClickListener(e->
+				{
+					if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
+					{
+						appService.logout();
+					}	
+					else
+					{
+						UI.getCurrent().navigate(SignUpView.class);
+					}
+				});
+				add(btn2);
+	}
 	@Autowired
 	public TopHeader(AppService appService)
 	{
@@ -82,15 +160,85 @@ public class TopHeader extends Div
 		    } 
 		    else if (selected == tab2) 
 		    {
-		        UI.getCurrent().navigate(ProfileView.class);
+		    	if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
+				{
+		    		UI.getCurrent().navigate(ProfileView.class);
+					
+				}
+				else
+				{
+					Dialog dialog = new Dialog();
+
+				    VerticalLayout content = new VerticalLayout(
+				        new H3("Giriş Yapınız"),
+				        new Paragraph("Bu linke gidebilmek için giriş yapmanız gerekir"),
+				        new Button("Tamam", ex -> dialog.close())
+				    );
+				    content.setAlignItems(Alignment.CENTER);
+				    dialog.add(content);
+
+				    // Modal davranışı
+				    dialog.setModal(true);   // arka planı “kilitle”
+				    dialog.setDraggable(true);
+				    dialog.setResizable(false);
+
+				    dialog.open();
+				}
+		        
 		    } 
 		    else if (selected == tab3) 
 		    {
-		        UI.getCurrent().navigate(GroupsView.class);
+		    	if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
+				{
+		    		UI.getCurrent().navigate(GroupsView.class);
+					
+				}
+				else
+				{
+					Dialog dialog = new Dialog();
+
+				    VerticalLayout content = new VerticalLayout(
+				        new H3("Giriş Yapınız"),
+				        new Paragraph("Bu linke gidebilmek için giriş yapmanız gerekir"),
+				        new Button("Tamam", ex -> dialog.close())
+				    );
+				    content.setAlignItems(Alignment.CENTER);
+				    dialog.add(content);
+
+				    // Modal davranışı
+				    dialog.setModal(true);   // arka planı “kilitle”
+				    dialog.setDraggable(true);
+				    dialog.setResizable(false);
+
+				    dialog.open();
+				}
 		    }
 		    else if (selected == tab4) 
 		    {
-		        UI.getCurrent().navigate(FriendshipView.class);
+		    	if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
+				{
+		    		UI.getCurrent().navigate(FriendshipView.class);
+					
+				}
+				else
+				{
+					Dialog dialog = new Dialog();
+
+				    VerticalLayout content = new VerticalLayout(
+				        new H3("Giriş Yapınız"),
+				        new Paragraph("Bu linke gidebilmek için giriş yapmanız gerekir"),
+				        new Button("Tamam", ex -> dialog.close())
+				    );
+				    content.setAlignItems(Alignment.CENTER);
+				    dialog.add(content);
+
+				    // Modal davranışı
+				    dialog.setModal(true);   // arka planı “kilitle”
+				    dialog.setDraggable(true);
+				    dialog.setResizable(false);
+
+				    dialog.open();
+				}
 		    }
 		});
 		menu.setSelectedIndex(-1);
@@ -98,7 +246,7 @@ public class TopHeader extends Div
 		
 		
 		
-		Button btn1=null;
+		//Button btn1=null;
 		if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
 		{
 			
@@ -132,7 +280,7 @@ public class TopHeader extends Div
 		add(btn1);
 		
 		
-		Button btn2=null;
+		//Button btn2=null;
 		if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
 		{
 			btn2=new Button("Çıkış Yap");
@@ -156,7 +304,7 @@ public class TopHeader extends Div
 		{
 			if(appService.getCurrentAppUser()!=null&& appService.isLoggedIn()==true)
 			{
-				UI.getCurrent().navigate("/logout");
+				appService.logout();
 			}	
 			else
 			{

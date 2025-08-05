@@ -27,7 +27,7 @@ public class AppUserDetails implements UserDetails{
 		List<GrantedAuthority> list=new ArrayList<GrantedAuthority>();
 		for(int i=0;i<roles.length;i++)
 		{
-			list.add(new SimpleGrantedAuthority(roles[i]));
+			list.add(new SimpleGrantedAuthority("ROLE_"+roles[i]));
 		}
 		return list;
 	}
