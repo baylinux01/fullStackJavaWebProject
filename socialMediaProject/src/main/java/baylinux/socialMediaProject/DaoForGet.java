@@ -128,7 +128,7 @@ public class DaoForGet
 				p.setEMail(rs.getString("eMail"));
 				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
-				p.setBirthDate(rs.getString("birthData"));
+				p.setBirthDate(rs.getString("birthDate"));
 				p.setRoles(rs.getString("roles"));
 				appUsersInDb.add(p);
 				
@@ -179,7 +179,7 @@ public class DaoForGet
 				p.setEMail(rs.getString("eMail"));
 				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
-				p.setBirthDate(rs.getString("birthData"));
+				p.setBirthDate(rs.getString("birthDate"));
 				p.setRoles(rs.getString("roles"));
 				appUsersInDb.add(p);
 				
@@ -280,7 +280,7 @@ public class DaoForGet
 				p.setEMail(rs.getString("eMail"));
 				p.setPassword(rs.getString("password"));
 				p.setUserImageAsByteArray(rs.getBytes("userImageAsByteArray"));
-				p.setBirthDate(rs.getString("birthData"));
+				p.setBirthDate(rs.getString("birthDate"));
 				p.setRoles(rs.getString("roles"));
 				appUsersInDb.add(p);
 				

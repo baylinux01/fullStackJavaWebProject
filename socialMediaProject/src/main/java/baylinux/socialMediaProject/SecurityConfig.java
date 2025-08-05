@@ -63,7 +63,7 @@ public class SecurityConfig extends VaadinWebSecurity{
 	             // .anyRequest().authenticated()  <-- REMOVE this line
 	     ).logout(logout -> logout
                  .logoutUrl("/logout")          
-                 .logoutSuccessUrl("/logout")
+                 .logoutSuccessUrl("/LoginView")
                  .invalidateHttpSession(true)
                  .deleteCookies("JSESSIONID")
 				 );
