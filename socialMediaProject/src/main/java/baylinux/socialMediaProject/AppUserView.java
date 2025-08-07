@@ -44,7 +44,7 @@ public class AppUserView extends Div implements BeforeEnterObserver
 	}
 	
 	
-	protected void myBuild() 
+	void myBuild() 
 	{
 	    
 	    if (appUser != null) {

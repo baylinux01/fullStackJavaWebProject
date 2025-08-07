@@ -21,13 +21,13 @@ public class AppUsersView extends Div implements BeforeEnterObserver
 	
 	AppService appService;
 	@Autowired
-	public AppUsersView(AppService appService)
+	AppUsersView(AppService appService)
 	{
 		super();
 		this.appService=appService;
 	}
 	
-	protected void myBuild()
+	void myBuild()
 	{
 		
 	}
