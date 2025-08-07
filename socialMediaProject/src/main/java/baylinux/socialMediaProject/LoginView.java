@@ -47,7 +47,7 @@ public class LoginView extends Div implements BeforeEnterObserver
 			
 		}
 		
-		protected void myBuild()
+		void myBuild()
 		{
 			NativeLabel label1=new NativeLabel("Kullanıcı Adı veya EMail: ");
 			label1.getStyle()

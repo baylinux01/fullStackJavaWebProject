@@ -66,7 +66,7 @@ String imagePath=null;
 		
 	}
 
-	protected void myBuild()
+	void myBuild()
 	{
 		this.getStyle().set("height", "800px");
 		

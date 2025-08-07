@@ -39,14 +39,14 @@ public class IndexView extends Div implements BeforeEnterObserver
 	
 	AppService appService;
 	@Autowired
-	public IndexView(AppService appService)
+	IndexView(AppService appService)
 	{
 		super();
 		this.appService=appService;
 		
 	}
 	
-	protected void myBuild()
+	void myBuild()
 	{
 		
 	}

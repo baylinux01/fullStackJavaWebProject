@@ -16,16 +16,19 @@ public class GroupsView extends Div implements BeforeEnterObserver
 	@Override
 	public void beforeEnter(BeforeEnterEvent event) 
 	{
-		
-		
+		myBuild();
 	}
 	
 	AppService appService;
 	@Autowired
-	public GroupsView(AppService appService)
+	GroupsView(AppService appService)
 	{
 		super();
 		this.appService=appService;
 	}
 	
+	void myBuild()
+	{
+		
+	}
 }

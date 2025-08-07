@@ -46,7 +46,7 @@ public class TopHeader extends Div
 	Button btn2=null;
 	
 	
-	public void updateHeader()
+	void updateHeader()
 	{
 		if (btn1 != null) remove(btn1);
 	    if (btn2 != null) remove(btn2);
@@ -119,13 +119,13 @@ public class TopHeader extends Div
 				add(btn2);
 	}
 	@Autowired
-	public TopHeader(AppService appService)
+	TopHeader(AppService appService)
 	{
 		super();
 		this.appService=appService;
 		myBuild();
 	}
-	protected void myBuild()
+	void myBuild()
 	{
 		Div header=new Div();
 		header.getStyle()

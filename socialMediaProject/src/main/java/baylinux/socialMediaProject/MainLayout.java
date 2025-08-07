@@ -40,7 +40,7 @@ public class MainLayout extends Div implements RouterLayout, AfterNavigationObse
 	AppService appService;
 	
 	@Autowired
-	public MainLayout(AppService appService)
+	MainLayout(AppService appService)
 	{
 		super();
 		this.appService=appService;
@@ -48,7 +48,7 @@ public class MainLayout extends Div implements RouterLayout, AfterNavigationObse
 		
 	}
 	
-	protected void myBuild()
+	void myBuild()
 	{
 		add(new TopHeader(appService));
 		add(contentWrapper);

@@ -10,8 +10,8 @@ import com.vaadin.flow.router.Route;
 import jakarta.annotation.security.RolesAllowed;
 
 @RolesAllowed("USER")
-@Route(value="/FriendshipView",layout=MainLayout.class)
-public class FriendshipView extends Div implements BeforeEnterObserver
+@Route(value="/GroupView",layout=MainLayout.class)
+public class GroupView extends Div implements BeforeEnterObserver
 {
 	@Override
 	public void beforeEnter(BeforeEnterEvent event) 
@@ -21,11 +21,10 @@ public class FriendshipView extends Div implements BeforeEnterObserver
 	
 	AppService appService;
 	@Autowired
-	FriendshipView(AppService appService)
+	GroupView(AppService appService)
 	{
 		super();
 		this.appService=appService;
-		
 	}
 	
 	void myBuild()
