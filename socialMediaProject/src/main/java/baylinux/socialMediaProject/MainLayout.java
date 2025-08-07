@@ -7,6 +7,8 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
@@ -19,7 +21,8 @@ public class MainLayout extends Div implements RouterLayout, AfterNavigationObse
 	
 	
 	@Override
-    public void afterNavigation(AfterNavigationEvent event) {
+    public void afterNavigation(AfterNavigationEvent event) 
+	{
         // TopHeader'ı güncelle
 		((TopHeader) getChildren().findFirst().orElse(null)).updateHeader();
     }
@@ -32,6 +35,8 @@ public class MainLayout extends Div implements RouterLayout, AfterNavigationObse
                     .appendChild(content.getElement()); 
     }
 	
+	
+	
 	AppService appService;
 	
 	@Autowired
@@ -39,11 +44,15 @@ public class MainLayout extends Div implements RouterLayout, AfterNavigationObse
 	{
 		super();
 		this.appService=appService;
-		
-		
-		
-		add(new TopHeader(appService));
-		add(contentWrapper);
+		myBuild();
 		
 	}
+	
+	protected void myBuild()
+	{
+		add(new TopHeader(appService));
+		add(contentWrapper);
+	}
+
+	
 }

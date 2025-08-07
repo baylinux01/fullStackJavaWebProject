@@ -14,6 +14,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
@@ -27,7 +29,14 @@ import jakarta.annotation.security.PermitAll;
 
 @AnonymousAllowed
 @Route(value="/LoginView",layout=MainLayout.class)
-public class LoginView extends Div{
+public class LoginView extends Div implements BeforeEnterObserver
+{
+		@Override
+		public void beforeEnter(BeforeEnterEvent event) 
+		{
+			myBuild();
+			
+		}
 
 		AppService appService;
 		@Autowired
@@ -36,7 +45,10 @@ public class LoginView extends Div{
 			super();
 			this.appService=appService;
 			
-			
+		}
+		
+		protected void myBuild()
+		{
 			NativeLabel label1=new NativeLabel("Kullanıcı Adı veya EMail: ");
 			label1.getStyle()
 			.set("position", "absolute")
@@ -143,4 +155,5 @@ public class LoginView extends Div{
 			});
 			add(btn3);
 		}
+		
 }

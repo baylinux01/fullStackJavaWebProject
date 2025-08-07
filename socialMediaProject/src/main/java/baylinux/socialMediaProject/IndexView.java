@@ -12,6 +12,8 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -26,8 +28,15 @@ import jakarta.annotation.security.PermitAll;
 
 @AnonymousAllowed
 @Route(value="",layout = MainLayout.class)
-public class IndexView extends Div
+public class IndexView extends Div implements BeforeEnterObserver
 {
+	@Override
+	public void beforeEnter(BeforeEnterEvent event) 
+	{
+		myBuild();
+		
+	}
+	
 	AppService appService;
 	@Autowired
 	public IndexView(AppService appService)
@@ -35,6 +44,11 @@ public class IndexView extends Div
 		super();
 		this.appService=appService;
 		
+	}
+	
+	protected void myBuild()
+	{
 		
 	}
+	
 }

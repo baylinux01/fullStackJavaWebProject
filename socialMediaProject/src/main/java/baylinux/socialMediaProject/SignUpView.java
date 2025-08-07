@@ -23,6 +23,8 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.UploadI18N;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.server.streams.UploadHandler;
@@ -41,17 +43,31 @@ import com.vaadin.flow.component.html.Paragraph;
 
 @AnonymousAllowed
 @Route(value="/SignUpView",layout=MainLayout.class)
-public class SignUpView extends Div{
+public class SignUpView extends Div implements BeforeEnterObserver
+{
 
 AppService appService;
 
 String imagePath=null;
 
+	@Override
+	public void beforeEnter(BeforeEnterEvent event) 
+	{
+		myBuild();
+		
+	}
 	@Autowired
 	SignUpView(AppService appService)
 	{
 		super();
 		this.appService=appService;
+		
+		
+		
+	}
+
+	protected void myBuild()
+	{
 		this.getStyle().set("height", "800px");
 		
 		
@@ -521,7 +537,5 @@ String imagePath=null;
 			}
 		});
 		add(btn3);
-		
-		
 	}
 }

@@ -3,15 +3,23 @@ package baylinux.socialMediaProject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 
 import jakarta.annotation.security.RolesAllowed;
 
 @RolesAllowed("USER")
 @Route(value="/GroupsView",layout=MainLayout.class)
-public class GroupsView extends Div
+public class GroupsView extends Div implements BeforeEnterObserver
 {
-
+	@Override
+	public void beforeEnter(BeforeEnterEvent event) 
+	{
+		
+		
+	}
+	
 	AppService appService;
 	@Autowired
 	public GroupsView(AppService appService)
@@ -19,4 +27,5 @@ public class GroupsView extends Div
 		super();
 		this.appService=appService;
 	}
+	
 }

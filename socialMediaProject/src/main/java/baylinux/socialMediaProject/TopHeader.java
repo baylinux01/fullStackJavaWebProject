@@ -1,6 +1,8 @@
 package baylinux.socialMediaProject;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +21,11 @@ import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteParameters;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
@@ -32,17 +38,18 @@ import jakarta.annotation.security.PermitAll;
 		   + "}")
 
 
-public class TopHeader extends Div 
+public class TopHeader extends Div
 {  
 	
 	AppService appService;
 	Button btn1=null;
 	Button btn2=null;
 	
+	
 	public void updateHeader()
 	{
-		remove(btn1);
-		remove(btn2);
+		if (btn1 != null) remove(btn1);
+	    if (btn2 != null) remove(btn2);
 		
 		//Button btn1=null;
 				if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
@@ -116,7 +123,10 @@ public class TopHeader extends Div
 	{
 		super();
 		this.appService=appService;
-		
+		myBuild();
+	}
+	protected void myBuild()
+	{
 		Div header=new Div();
 		header.getStyle()
 		.set("position", "absolute")
@@ -162,7 +172,9 @@ public class TopHeader extends Div
 		    {
 		    	if(appService.getCurrentAppUser()!=null && appService.isLoggedIn()==true)
 				{
-		    		UI.getCurrent().navigate(ProfileView.class);
+		    		RouteParameters params = 
+		    				new RouteParameters("appUserUsername",appService.getCurrentAppUser().getUsername());
+		    		UI.getCurrent().navigate(AppUserView.class,params);
 					
 				}
 				else
@@ -312,7 +324,7 @@ public class TopHeader extends Div
 			}
 		});
 		add(btn2);
-		
 	}
+	
 	
 }
